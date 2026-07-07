@@ -31,12 +31,15 @@ export default function Hero() {
       {/* Real hero artwork — LCP image, eager + high priority */}
       <img
         ref={artRef}
-        src="/images/hero.webp"
+        src="/images/hero-1200.webp"
+        srcSet="/images/hero-768.webp 768w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
+        sizes="100vw"
+        width="1600"
+        height="1067"
         alt="金継ぎの茶碗と朝日、桜の枝"
-        fetchpriority="high"
+        fetchPriority="high"
         decoding="async"
         className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover object-[72%_center] transition-transform duration-500 ease-soft"
-        style={{ animation: 'sunRise 2s cubic-bezier(0.16,1,0.3,1) both' }}
       />
 
       {/* Left paper scrim for text legibility */}

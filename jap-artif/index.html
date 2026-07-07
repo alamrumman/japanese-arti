@@ -33,16 +33,36 @@
       content="受け継がれる伝統と、磨き抜かれた匠の技。日本の工芸品が語る美と心の物語。"
     />
 
-    <!-- Preload hero LCP image -->
-    <link rel="preload" as="image" href="/images/hero.webp" fetchpriority="high" />
+    <!-- Preload hero LCP image (responsive: mobile gets the small variant) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-1200.webp"
+      imagesrcset="/images/hero-768.webp 768w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
 
-    <!-- Fonts: preconnect + swap for good CWV -->
+    <!-- Fonts: preconnect + async (non-render-blocking) + swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      />
+    </noscript>
 
     <script type="application/ld+json">
       {

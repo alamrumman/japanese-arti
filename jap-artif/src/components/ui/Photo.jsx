@@ -17,7 +17,7 @@ export default function Photo({
         alt={alt}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"
-        fetchpriority={eager ? 'high' : 'auto'}
+        fetchPriority={eager ? 'high' : 'auto'}
         className={`h-full w-full object-cover ${imgClassName}`}
       />
       {/* soft studio vignette to seat the object in the layout */}

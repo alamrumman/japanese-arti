@@ -22,7 +22,7 @@
     background-color: var(--bg);
     color: var(--ink);
     font-family: 'Noto Sans JP', system-ui, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.8;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -54,13 +54,16 @@
 }
 
 @layer components {
-  /* Warm handmade-paper background used across sections */
+  /* Warm handmade-paper background used across sections.
+     Noise is a pre-rasterized PNG tile — a live feTurbulence filter here
+     costs seconds of Style & Layout on mobile. */
   .bg-paper-texture {
     background-color: var(--bg);
     background-image:
       radial-gradient(circle at 18% 22%, rgba(199, 155, 82, 0.06), transparent 42%),
       radial-gradient(circle at 82% 78%, rgba(168, 108, 74, 0.05), transparent 46%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      url('/images/paper-noise.png');
+    background-size: auto, auto, 140px 140px;
   }
 
   .container-max {
@@ -115,7 +118,6 @@
       opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
   }
   .reveal.is-visible {
     opacity: 1;

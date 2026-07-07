@@ -1,31 +1,46 @@
 import { useEffect } from 'react'
-import Lenis from 'lenis'
 
 /**
- * Lenis smooth scrolling. Disabled when the user prefers reduced motion.
- * PRD: duration 1.2, nothing snaps.
+ * Lenis smooth scrolling, loaded lazily after first paint so it stays out of
+ * the critical bundle and off the main thread during load. Disabled when the
+ * user prefers reduced motion. PRD: duration 1.2, nothing snaps.
  */
 export function useSmoothScroll() {
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    })
-
+    let lenis
     let rafId
-    const raf = (time) => {
-      lenis.raf(time)
-      rafId = requestAnimationFrame(raf)
+    let cancelled = false
+
+    const start = () => {
+      import('lenis').then(({ default: Lenis }) => {
+        if (cancelled) return
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        })
+        const raf = (time) => {
+          lenis.raf(time)
+          rafId = requestAnimationFrame(raf)
+        }
+        rafId = requestAnimationFrame(raf)
+      })
     }
-    rafId = requestAnimationFrame(raf)
+
+    // Wait until the browser is idle so it doesn't compete with LCP.
+    const idle =
+      typeof requestIdleCallback !== 'undefined'
+        ? requestIdleCallback(start, { timeout: 2000 })
+        : setTimeout(start, 1200)
 
     return () => {
-      cancelAnimationFrame(rafId)
-      lenis.destroy()
+      cancelled = true
+      if (typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idle)
+      else clearTimeout(idle)
+      if (rafId) cancelAnimationFrame(rafId)
+      if (lenis) lenis.destroy()
     }
   }, [])
 }
