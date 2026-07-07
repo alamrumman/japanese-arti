@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd jap-artif && npm install",
+  "buildCommand": "cd jap-artif && npm run build",
+  "outputDirectory": "jap-artif/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
