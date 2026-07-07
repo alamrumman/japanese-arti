@@ -14,4 +14,4 @@ Every interaction should feel premium.
 
 Do not sacrifice Lighthouse scores for visual effects.
 
-Whenever there is uncertainty between aesthetics and performance, choose the implementation that results in better Core Web Vitals while preserving the intended experience.
+Whenever there is uncertainty between aesthetics and performance, choose the implementation that results in better Core Web Vitals while preserving the intended experienc.
