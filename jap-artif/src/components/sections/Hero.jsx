@@ -7,13 +7,11 @@ export default function Hero() {
   const artRef = useRef(null)
 
   // Subtle mouse parallax on the artwork (±desktop only, reduced-motion safe).
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-
   const handleMove = (e) => {
     const stage = stageRef.current
     const art = artRef.current
     if (!stage || !art) return
-    if (reducedMotion.matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const r = stage.getBoundingClientRect()
     const px = (e.clientX - r.left) / r.width - 0.5
     const py = (e.clientY - r.top) / r.height - 0.5

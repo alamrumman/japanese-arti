@@ -227,6 +227,7 @@ var GALLERY = [
 var FOOTER_COLUMNS = [
 	{
 		heading: "工芸品",
+		headingTo: "/#artifacts",
 		links: [
 			"茶道具",
 			"陶磁器",
@@ -238,6 +239,7 @@ var FOOTER_COLUMNS = [
 	},
 	{
 		heading: "職人の技",
+		headingTo: "/#process",
 		links: [
 			"工芸の工程",
 			"素材について",
@@ -247,6 +249,7 @@ var FOOTER_COLUMNS = [
 	},
 	{
 		heading: "美の哲学",
+		headingTo: "/#philosophy",
 		links: [
 			"美意識",
 			"侘び寂び",
@@ -365,11 +368,10 @@ function Logo({ light = false, className = "" }) {
 //#endregion
 //#region src/components/layout/Navbar.jsx
 function Navbar() {
-	const { scrolled, hidden } = useScrollDirection();
+	const { scrolled } = useScrollDirection();
 	const [menuOpen, setMenuOpen] = useState(false);
 	return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx("header", {
-		className: `fixed inset-x-0 top-0 z-50 transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ease-soft
-          ${hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"}
+		className: `fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-soft
           ${scrolled ? "bg-bg/80 shadow-[0_1px_0_rgba(26,26,26,0.06)] backdrop-blur-md" : "bg-transparent"}`,
 		children: /* @__PURE__ */ jsxs("nav", {
 			className: "container-max flex items-center justify-between py-4",
@@ -472,7 +474,11 @@ function Footer() {
 				"aria-label": col.heading,
 				children: [/* @__PURE__ */ jsx("h3", {
 					className: "font-serif text-sm font-medium tracking-widest text-gold",
-					children: col.heading
+					children: col.headingTo ? /* @__PURE__ */ jsx(Link, {
+						to: col.headingTo,
+						className: "hover:opacity-80 transition-opacity duration-200",
+						children: col.heading
+					}) : col.heading
 				}), /* @__PURE__ */ jsx("ul", {
 					className: "mt-5 space-y-3",
 					children: col.links.map((link) => {
@@ -515,11 +521,15 @@ function ScrollToTop() {
 	const { pathname, hash } = useLocation();
 	useEffect(() => {
 		if (hash) {
-			const el = document.getElementById(hash.slice(1));
-			if (el) {
-				el.scrollIntoView({ behavior: "smooth" });
-				return;
-			}
+			requestAnimationFrame(() => {
+				const el = document.getElementById(hash.slice(1));
+				if (el) {
+					el.scrollIntoView({ behavior: "smooth" });
+					return;
+				}
+				window.scrollTo(0, 0);
+			});
+			return;
 		}
 		window.scrollTo(0, 0);
 	}, [pathname, hash]);
@@ -661,7 +671,8 @@ function Petals() {
 				height: p.size * .72,
 				background: "linear-gradient(135deg, #f7dfe4, #eab7c3)",
 				borderRadius: "60% 0 60% 0",
-				animation: `floatPetal ${p.dur}s linear ${p.delay}s infinite`
+				animation: `floatPetal ${p.dur}s linear ${p.delay}s infinite`,
+				willChange: "transform"
 			}
 		}, i))
 	});
@@ -1272,7 +1283,8 @@ function GoldDust() {
 				background: "var(--gold)",
 				boxShadow: "0 0 8px var(--gold)",
 				animation: `breathe ${6 + d.d}s ease-in-out ${d.d}s infinite`,
-				opacity: .7
+				opacity: .7,
+				willChange: "transform"
 			}
 		}, i))
 	});
@@ -1325,7 +1337,8 @@ function Philosophy() {
 						className: "relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-full",
 						style: {
 							boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)",
-							animation: "breathe 10s ease-in-out infinite"
+							animation: "breathe 10s ease-in-out infinite",
+							willChange: "transform"
 						},
 						children: [/* @__PURE__ */ jsx("img", {
 							src: "/images/philobowl.webp",
