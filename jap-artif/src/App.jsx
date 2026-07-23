@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom'
-import RouteTree from './RouteTree.jsx'
+import RouteTreeLazy from './RouteTreeLazy.jsx'
 
 export default function App() {
   return (
     <BrowserRouter>
-      <RouteTree />
+      <RouteTreeLazy />
     </BrowserRouter>
   )
 }

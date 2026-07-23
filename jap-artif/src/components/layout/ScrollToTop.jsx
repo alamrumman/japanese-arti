@@ -7,11 +7,16 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      const el = document.getElementById(hash.slice(1))
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-        return
-      }
+      // Defer one frame so Lenis finishes processing the route transition
+      requestAnimationFrame(() => {
+        const el = document.getElementById(hash.slice(1))
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+          return
+        }
+        window.scrollTo(0, 0)
+      })
+      return
     }
     window.scrollTo(0, 0)
   }, [pathname, hash])

@@ -22,6 +22,7 @@ export default function Petals() {
             background: 'linear-gradient(135deg, #f7dfe4, #eab7c3)',
             borderRadius: '60% 0 60% 0',
             animation: `floatPetal ${p.dur}s linear ${p.delay}s infinite`,
+            willChange: 'transform',
           }}
         />
       ))}

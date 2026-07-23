@@ -5,14 +5,13 @@ import { useScrollDirection } from '../../hooks/useScrollDirection.js'
 import Logo from './Logo.jsx'
 
 export default function Navbar() {
-  const { scrolled, hidden } = useScrollDirection()
+  const { scrolled } = useScrollDirection()
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ease-soft
-          ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-soft
           ${scrolled ? 'bg-bg/80 shadow-[0_1px_0_rgba(26,26,26,0.06)] backdrop-blur-md' : 'bg-transparent'}`}
       >
         <nav className="container-max flex items-center justify-between py-4" aria-label="メインナビゲーション">

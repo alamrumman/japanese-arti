@@ -17,7 +17,15 @@ export default function Footer() {
 
         {FOOTER_COLUMNS.map((col) => (
           <nav key={col.heading} aria-label={col.heading}>
-            <h3 className="font-serif text-sm font-medium tracking-widest text-gold">{col.heading}</h3>
+            <h3 className="font-serif text-sm font-medium tracking-widest text-gold">
+              {col.headingTo ? (
+                <Link to={col.headingTo} className="hover:opacity-80 transition-opacity duration-200">
+                  {col.heading}
+                </Link>
+              ) : (
+                col.heading
+              )}
+            </h3>
             <ul className="mt-5 space-y-3">
               {col.links.map((link) => {
                 const item = typeof link === 'string' ? { label: link } : link

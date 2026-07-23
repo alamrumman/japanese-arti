@@ -27,6 +27,7 @@ function GoldDust() {
             boxShadow: '0 0 8px var(--gold)',
             animation: `breathe ${6 + d.d}s ease-in-out ${d.d}s infinite`,
             opacity: 0.7,
+            willChange: 'transform',
           }}
         />
       ))}
@@ -75,7 +76,7 @@ export default function Philosophy() {
         <Reveal delay={160}>
           <div
             className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-full"
-            style={{ boxShadow: '0 40px 80px -20px rgba(0,0,0,0.6)', animation: 'breathe 10s ease-in-out infinite' }}
+            style={{ boxShadow: '0 40px 80px -20px rgba(0,0,0,0.6)', animation: 'breathe 10s ease-in-out infinite', willChange: 'transform' }}
           >
             <img
               src="/images/philobowl.webp"

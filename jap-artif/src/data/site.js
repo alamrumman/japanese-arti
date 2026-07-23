@@ -49,14 +49,17 @@ export const GALLERY = [
 export const FOOTER_COLUMNS = [
   {
     heading: '工芸品',
+    headingTo: '/#artifacts',
     links: ['茶道具', '陶磁器', '漆器', '木工品', '金工品', '染織品'],
   },
   {
     heading: '職人の技',
+    headingTo: '/#process',
     links: ['工芸の工程', '素材について', '伝統の継承', '道具の紹介'],
   },
   {
     heading: '美の哲学',
+    headingTo: '/#philosophy',
     links: ['美意識', '侘び寂び', '自然との調和', '日本の心'],
   },
   {
